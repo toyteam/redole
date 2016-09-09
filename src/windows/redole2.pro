@@ -16,15 +16,36 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     pdffile.cpp \
     pdfview.cpp \
-    pdfpage.cpp
+    pdfpage.cpp \
+    configreader.cpp \
+    bookmarkreader.cpp \
+    bookinfo.cpp \
+    logindialog.cpp
 
 HEADERS  += mainwindow.h \
     pdffile.h \
     pdfview.h \
-    pdfpage.h
+    pdfpage.h \
+    configreader.h \
+    bookmarkreader.h \
+    bookinfo.h \
+    logindialog.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    logindialog.ui
+
+QT += printsupport
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/poppler/ -llibpoppler.dll
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/poppler/ -llibpoppler.dll
+else:unix: LIBS += -L$$PWD/poppler/ -llibpoppler.dll
 
 INCLUDEPATH += $$PWD/poppler
-win32: LIBS += -L$$PWD/poppler -llibpoppler
-win32: LIBS += -L$$PWD/poppler -llibpoppler-qt5
+DEPENDPATH += $$PWD/poppler
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/poppler/ -llibpoppler-qt5.dll
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/poppler/ -llibpoppler-qt5.dll
+else:unix: LIBS += -L$$PWD/poppler/ -llibpoppler-qt5.dll
+
+INCLUDEPATH += $$PWD/poppler
+DEPENDPATH += $$PWD/poppler
